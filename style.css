@@ -138,7 +138,7 @@ main {
     text-align: center;
     font-size: 20px;
     color: var(--secondary-color);
-    transition: color var(--transition-duration) var (--transition-timing-function);
+    transition: color var(--transition-duration) var(--transition-timing-function);
 }
 
 #btcAdvice:hover, #ethAdvice:hover, #dogeAdvice:hover {
@@ -327,7 +327,7 @@ input:focus, select:focus, textarea:focus {
     background-color: var(--primary-color);
     padding: var(--space-lg);
     border-radius: var(--border-radius);
-    box-shadow: var (--box-shadow);
+    box-shadow: var(--box-shadow);
     z-index: 10;
     width: 80%;
     max-width: 500px;
@@ -763,4 +763,55 @@ blockquote {
 
 .panel.active .panel-body {
     display: block;
+}
+
+/* Responsive, accessible layout refinements.
+   Preserve existing chart DOM IDs and live data behavior. */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+    padding: clamp(12px, 3vw, 32px);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 58%, #164e63 100%);
+}
+header {
+    position: relative;
+    top: auto; left: auto; right: auto;
+    border-radius: 16px;
+    max-width: 1280px;
+    background: rgba(15, 23, 42, 0.72);
+}
+header h1 { font-size: clamp(1.5rem, 3.5vw, 2.5rem); line-height: 1.25; }
+main { width: min(100%, 1280px); min-width: 0; }
+#price-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(12px, 2vw, 24px);
+    align-items: stretch;
+}
+.price-box {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 330px;
+    margin: 0;
+    border-radius: 18px;
+    padding: clamp(16px, 2vw, 26px);
+    background: #fff;
+}
+.price-box:hover { animation: none; }
+#btcPrice, #ethPrice, #dogePrice { font-size: clamp(1.2rem, 2.1vw, 1.65rem); overflow-wrap: anywhere; }
+#btcAdvice, #ethAdvice, #dogeAdvice { font-size: clamp(0.95rem, 1.6vw, 1.1rem); }
+.price-box canvas { width: 100% !important; max-width: 100%; min-width: 0; }
+footer { max-width: 1280px; border-radius: 12px; }
+:focus-visible { outline: 3px solid #0e7490; outline-offset: 3px; }
+@media (max-width: 480px) {
+    #price-container { margin: 1.25rem auto; }
+    .price-box { min-height: 290px; }
+    header, footer { padding: 0.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
